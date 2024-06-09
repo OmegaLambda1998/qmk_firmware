@@ -1,3 +1,26 @@
+Fork of https://github.com/qmk/qmk_firmware containing quality of life changes for my own personal system
+
+# Changes from Upstream:
+
+## [Makefile](Makefile)
+
+- Enable debugging
+
+## [tmk_core/rules.mk](/tmk_core/rules.mk)
+
+- Comment out `-Werror` in  as I couldn't compile
+
+## [util/install/arch.sh](/util/install/arch.sh) & [util/install/linux_shared.sh](/util/install/linux_shared.sh)
+
+- Replace `sudo` with `doas` in  as my preferred root manager
+
+## New Files
+
+- [config.h](keyboards/annepro2/keymaps/OmegaLambda/config.h)
+- [keymap.c](keyboards/annepro2/keymaps/OmegaLambda/keymap.c)
+
+# Original Readme
+
 # Quantum Mechanical Keyboard Firmware
 
 [![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
