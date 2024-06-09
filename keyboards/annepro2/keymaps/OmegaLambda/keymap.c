@@ -86,7 +86,7 @@ enum anne_pro_layers {
   * \-----------------------------------------------------------------------------------------/
   *
   */
- [FNS] = KEYMAP( /* FN2 */
+ [FN2] = LAYOUT_60_ansi( /* FN2 */
     KC_GRV, KC_AP2_BT1, KC_AP2_BT2, KC_AP2_BT3, KC_AP2_BT4, KC_MPRV, KC_MPLY, KC_MNXT, KC_AP_LED_PREV_PROFILE, KC_AP_LED_ON, KC_AP_LED_OFF, KC_VOLD, KC_VOLU, KC_DEL,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_HOME, KC_END, _______,
     _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_PGUP, KC_PGDN, _______,
@@ -98,8 +98,8 @@ enum anne_pro_layers {
 
 // Code to run after initializing the keyboard
 void keyboard_post_init_user(void) {
-    // annepro2-shine disables LEDs by default. Uncomment this function to enable them at startup.
-    annepro2LedEnable();
+
+    ap2_led_enable();
 
     // Replace "i" with the index of your preferred profile.
 
@@ -126,7 +126,7 @@ void keyboard_post_init_user(void) {
     // 15: Reactive Pulse
     // 16: Reactive Term
 
-    annepro2LedSetProfile(14);
+    ap2_led_set_profile(14);
 }
 
 // TODO: Based on default-layer-indicators
@@ -150,15 +150,17 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 // The function to handle the caps lock logic
-// From default-full-caps/keymap.c
+// It's called after the capslock changes state or after entering layers 1 and 2.
 bool led_update_user(led_t leds) {
     if (leds.caps_lock) {
-        // Set the leds to red
+        // Set the caps-lock to red
         const ap2_led_t color = {.p.red = 0xff, .p.green = 0x00, .p.blue = 0x00, .p.alpha = 0xff};
-        ap2_led_mask_set_mono(color);
+        ap2_led_sticky_set_key(2, 0, color);
+        /* NOTE: Instead of colouring the capslock only, you can change the whole
+           keyboard with ap2_led_mask_set_mono */
     } else {
-        const ap2_led_t color = {.p.red = 0x00, .p.green = 0x00, .p.blue = 0x00, .p.alpha = 0x00};
-        ap2_led_mask_set_mono(color);
+        // Reset the capslock if there is no layer active
+        ap2_led_unset_sticky_key(2, 0);
     }
 
     return true;
