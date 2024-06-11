@@ -14,6 +14,22 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
+// TODO: Steal from https://github.com/kdarkhan/qmk_firmware
+
+// TODO: RGB_VAI / RGB_VAD:
+//  Shift = Hue
+//  Ctrl = Sat
+//  No Mod = Val
+//  VAI = Up
+//  VAD = Down
+
+// TODO: Glitchy flashing
+
+// TODO: Mouse / Caps led don't work in bluetooth
+
+
+
+
 #include QMK_KEYBOARD_H
 
 // TODO: Add Sway Mod layer (Magic -> MOD)
@@ -58,7 +74,7 @@ enum anne_pro_layers {
   * |-----------------------------------------------------------------------------------------+
   * |            |     |     |     |     |     |     |     |     | INSRT | DEL |              |
   * |-----------------------------------------------------------------------------------------+
-  * |       |       |       |                                 |       |       |  FN2  |       |
+  * |       |       |       |           Right Click           |       |       |  FN2  |       |
   * \-----------------------------------------------------------------------------------------/
   *
   */
@@ -67,14 +83,12 @@ enum anne_pro_layers {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_HOME, KC_END, _______,
     KC_CAPS, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_PGUP, KC_PGDN, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_INS, KC_DEL, _______,
-    _______, _______, _______, _______, _______, _______, MO(FN2), _______
+    _______, _______, _______, KC_BTN2, _______, _______, MO(FN2), _______
 ),
   /*
-  * TODO: Shift+LED_NEXT -> LED_PREV
-  * TODO: LED_TGL
   * Layer FN2
   * ,-----------------------------------------------------------------------------------------.
-  * | `~ | BT1 | BT2 | BT3 | BT4 | MNX | MPLT | MPRV | LEDP | LEDN | LEDD | VOLD | VOLU | DEL |
+  * | `~ | BT1 | BT2 | BT3 | BT4 | MNX | MPLT | MPRV | MUTE | RGBC | RGBT | RGBD | RGBU | DEL |
   * |-----------------------------------------------------------------------------------------+
   * |        |     |     |     |     |     |     |     |     |     | PS | HOME | END |        |
   * |-----------------------------------------------------------------------------------------+
@@ -82,55 +96,26 @@ enum anne_pro_layers {
   * |-----------------------------------------------------------------------------------------+
   * |            |     |     |     |     |     |     |     |     | INSRT | DEL |              |
   * |-----------------------------------------------------------------------------------------+
-  * |       |       |       |                                |        |  FN1  |       |       |
+  * |       |       |       |         Left Click             |        |  FN1  |       |       |
   * \-----------------------------------------------------------------------------------------/
   *
   */
  [FN2] = LAYOUT_60_ansi( /* FN2 */
-    KC_GRV, KC_AP2_BT1, KC_AP2_BT2, KC_AP2_BT3, KC_AP2_BT4, KC_MPRV, KC_MPLY, KC_MNXT, KC_AP_LED_PREV_PROFILE, KC_AP_LED_ON, KC_AP_LED_OFF, KC_VOLD, KC_VOLU, KC_DEL,
+    KC_GRV, KC_AP2_BT1, KC_AP2_BT2, KC_AP2_BT3, KC_AP2_BT4, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_AP_RGB_MOD, KC_AP_RGB_TOG, KC_AP_RGB_VAD, KC_AP_RGB_VAI, KC_DEL,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_HOME, KC_END, _______,
     _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_PGUP, KC_PGDN, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_INS, KC_DEL, _______,
-    _______, _______, _______, _______, _______, MO(FN2), _______, _______
+    _______, _______, _______, KC_BTN1, _______, MO(FN1), _______, _______
  ),
 };
 // clang-format on
 
-// Code to run after initializing the keyboard
-void keyboard_post_init_user(void) {
+// void keyboard_post_init_user(void) {
+//     ap2_led_enable();
+//     ap2_led_set_profile(7);
+// }
 
-    ap2_led_enable();
-
-    // Replace "i" with the index of your preferred profile.
-
-    // Static
-    // 0: Color Bleed
-    // 1: Full White
-    // 2: Full Red
-    // 3: Full Green
-    // 4: Full Blue
-    // 5: Vertical Rainbow
-    // 6: Horizontal Rainbow
-    // 7: Miami Nights
-
-    // Animated
-    // 8: Low FPS Animated Horizontal Rainbow
-    // 9: High FPS Animated Horizontal Rainbow
-    // 10: High FPS Animated Vertical Rainbow
-    // 11: Animated Breathing
-    // 12: Animated Spectrum
-    // 13: Animated Wave
-
-    // Reactive
-    // 14: Reactive Fade
-    // 15: Reactive Pulse
-    // 16: Reactive Term
-
-    ap2_led_set_profile(14);
-}
-
-// TODO: Based on default-layer-indicators
-// Have keys which changed glow, with different colours to indicate groups
+// TODO: Set only changed keys to col rather than all keys
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case FN1:
