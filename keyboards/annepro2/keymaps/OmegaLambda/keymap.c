@@ -27,9 +27,6 @@
 
 // TODO: Mouse / Caps led don't work in bluetooth
 
-
-
-
 #include QMK_KEYBOARD_H
 
 // TODO: Add Sway Mod layer (Magic -> MOD)
@@ -116,37 +113,37 @@ enum anne_pro_layers {
 // }
 
 // TODO: Set only changed keys to col rather than all keys
-layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-        case FN1:
-            // Set the leds to green
-            ap2_led_set_foreground_color(0x00, 0xFF, 0x00);
-            break;
-        case FN2:
-            // Set the leds to blue
-            ap2_led_set_foreground_color(0x00, 0x00, 0xFF);
-            break;
-        default:
-            // Reset back to the current profile
-            ap2_led_reset_foreground_color();
-            break;
-    }
-    return state;
-}
+//layer_state_t layer_state_set_user(layer_state_t state) {
+//    switch (get_highest_layer(state)) {
+//        case FN1:
+//            // Set the leds to green
+//            ap2_led_set_foreground_color(0x00, 0xFF, 0x00);
+//            break;
+//        case FN2:
+//            // Set the leds to blue
+//            ap2_led_set_foreground_color(0x00, 0x00, 0xFF);
+//            break;
+//        default:
+//            // Reset back to the current profile
+//            ap2_led_reset_foreground_color();
+//            break;
+//    }
+//    return state;
+//}
 
 // The function to handle the caps lock logic
 // It's called after the capslock changes state or after entering layers 1 and 2.
-bool led_update_user(led_t leds) {
-    if (leds.caps_lock) {
-        // Set the caps-lock to red
-        const ap2_led_t color = {.p.red = 0xff, .p.green = 0x00, .p.blue = 0x00, .p.alpha = 0xff};
-        ap2_led_sticky_set_key(2, 0, color);
-        /* NOTE: Instead of colouring the capslock only, you can change the whole
-           keyboard with ap2_led_mask_set_mono */
-    } else {
-        // Reset the capslock if there is no layer active
-        ap2_led_unset_sticky_key(2, 0);
-    }
-
-    return true;
-}
+//bool led_update_user(led_t leds) {
+//    if (leds.caps_lock) {
+//        // Set the caps-lock to red
+//        const ap2_led_t color = {.p.red = 0xff, .p.green = 0x00, .p.blue = 0x00, .p.alpha = 0xff};
+//        ap2_led_sticky_set_key(2, 0, color);
+//        /* NOTE: Instead of colouring the capslock only, you can change the whole
+//           keyboard with ap2_led_mask_set_mono */
+//    } else {
+//        // Reset the capslock if there is no layer active
+//        ap2_led_unset_sticky_key(2, 0);
+//    }
+//
+//    return true;
+//}
