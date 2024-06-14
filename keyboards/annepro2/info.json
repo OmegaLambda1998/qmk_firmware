@@ -2,6 +2,7 @@
     "manufacturer": "Obins",
     "url": "https://openannepro.github.io/",
     "maintainer": "bwisn",
+    "bootloader_instructions": "Hold ESC whilst plugging in the USB cable. If `COMMAND_ENABLE = yes` then LSHIFT+RSHIFT+B will work as well.",
     "usb": {
         "vid": "0xAC20",
         "device_version": "13.3.7"
