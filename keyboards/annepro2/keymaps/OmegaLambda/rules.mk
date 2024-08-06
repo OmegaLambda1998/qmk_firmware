@@ -1,34 +1,15 @@
 #
-# --- Disable Features ---
-#
-
-# https://docs.qmk.fm/features/space_cadet
-SPACE_CADET_ENABLE = no
-
-# https://docs.qmk.fm/features/grave_esc
-GRAVE_ESC_ENABLE = no
-
-# https://docs.qmk.fm/keycodes_magic
-MAGIC_ENABLE = no
-
-#
 # --- Enable Features ---
 #
+
+# Enable RGB Matrix Lighting
+RGB_MATRIX_ENABLE = yes
 
 # Link Time Optimisation => Longer compiling, smaller compiled size
 LTO_ENABLE = yes
 
-# Holding ESC resets EEPROM settings, and preps for new firmware
-BOOTMAGIC_ENABLE = lite
-
-# Control mouse movement and clicks
-MOUSKEY_ENABLE = yes
-
 # Enable System and Audio key codes
 EXTRAKEY_ENABLE = yes
-
-# Enable Debug Information
-CONSOLE_ENABLE = yes
 
 # Modify keyboard behaviour without flashing or unplugging (for Bootmagic)
 # Command keycode => LSHIFT+RSHIFT+KEY
@@ -60,3 +41,28 @@ CONSOLE_ENABLE = yes
 # N			Toggle N-Key Rollover (NKRO)
 # Z			Toggle LED when computer is sleeping
 COMMAND_ENABLE = yes
+
+#
+# --- Disable Features ---
+#
+
+# Control mouse movement and clicks
+MOUSKEY_ENABLE = no
+
+# https://docs.qmk.fm/features/space_cadet
+SPACE_CADET_ENABLE = no
+
+# https://docs.qmk.fm/features/grave_esc
+GRAVE_ESC_ENABLE = no
+
+# Holding ESC resets EEPROM settings, and preps for new firmware
+BOOTMAGIC_ENABLE = no
+
+# https://docs.qmk.fm/keycodes_magic
+MAGIC_ENABLE = no
+
+# Enable Debug Information - can be enabled through COMMAND
+CONSOLE_ENABLE = no
+
+# https://docs.qmk.fm/features/audio
+AUDIO_ENABLE = no

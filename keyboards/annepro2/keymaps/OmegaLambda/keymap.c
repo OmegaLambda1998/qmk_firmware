@@ -27,7 +27,27 @@
 
 // TODO: Mouse / Caps led don't work in bluetooth
 
+#include <sys/_stdint.h>
+#include "rgb_matrix.h"
 #include QMK_KEYBOARD_H
+
+//
+// --- Disable Features ---
+//
+
+// Overwrite placeholder functions with simpler form to reduce firmware size
+#ifndef MAGIC_ENABLE
+uint16_t keycode_config(uint16_t keycode) {
+    return keycode;
+}
+
+uint8_t mod_config(uint8_t mod) {
+    return mod;
+}
+#endif
+
+
+
 
 // TODO: Add Sway Mod layer (Magic -> MOD)
 enum anne_pro_layers {
@@ -108,7 +128,7 @@ enum anne_pro_layers {
 // clang-format on
 
 void keyboard_post_init_user(void) {
-    ap2_led_enable();
+    // If RGB_MATRIX_ENABLE = yes, led's are enabled by default (see annepro2.c)
 }
 
 // TODO: Set only changed keys to col rather than all keys
