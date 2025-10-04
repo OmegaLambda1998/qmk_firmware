@@ -29,7 +29,7 @@ static const SerialConfig led_uart_init_config = {
 };
 
 #ifndef LED_UART_BAUD_RATE
-#    define LED_UART_BAUD_RATE 115200
+#    define LED_UART_BAUD_RATE 57600
 #endif  // LED_UART_BAUD_RATE
 
 static const SerialConfig led_uart_runtine_config = {
